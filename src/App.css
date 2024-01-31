@@ -1,3 +1,28 @@
 .App {
   padding: 2rem;
 }
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.header p {
+  text-decoration: underline;
+  color: blue;
+  margin: 0;
+  padding: 0;
+}
+.filters {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.button {
+  background-color: #6558f5;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+}
