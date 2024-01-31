@@ -4,16 +4,11 @@ import { fetchCountries } from "./network";
 import { CountriesDataType } from "./types";
 import { ColumnDef } from "@tanstack/react-table";
 import { CountriesTable } from "./components/CountriesTable";
-import { MoonLoader, PulseLoader } from "react-spinners";
-
-/**
- * 
- * Emails - murali@wrkspot.com
-    siva@wrkspot.com
- */
+import { PulseLoader } from "react-spinners";
 
 function App() {
   const [countries, setCountries] = useState<CountriesDataType[]>([]);
+  //columns for tanstack table
   const columns = useMemo<ColumnDef<CountriesDataType>[]>(
     () => [
       {
@@ -57,13 +52,15 @@ function App() {
   const [search, setSearch] = useState<string>("");
   const [population, setPopulation] = useState<number>(0);
   const [loading, setLoading] = useState(false);
+
   async function getCountries() {
     setLoading(true);
     const data = await fetchCountries();
     await setCountries(data);
     setLoading(false);
   }
-  function getDataOnPopulation(data: any) {
+
+  function getDataOnPopulation(data: CountriesDataType[]) {
     if (population === 0) return data;
     else {
       return data.filter(
@@ -119,7 +116,7 @@ function App() {
             population > 0
               ? getDataOnPopulation(
                   countries.filter((c: Record<string, any>) =>
-                    c.name.startsWith(search)
+                    c.name.toLowerCase().startsWith(search.toLowerCase())
                   )
                 )
               : countries.filter((c: Record<string, any>) =>
